@@ -12,14 +12,23 @@ using namespace std;
 
 
 
-
 Personal::Personal()
 {
+
+    // DATABASE
+    QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString dbName = "E:/Annad/VLN/Skil2/skil2.sqlite";
+    db.setDatabaseName(dbName);
+    db.open();
+
     vector<string> name;
     vector<string> gender;
     vector<string> birth;
     vector<string> death;
 }
+
+
 
 void Personal::loadPersonal()
 {
@@ -328,21 +337,25 @@ void Personal::pushNewPersonal(string nam, string sex, string birt, string deat)
 
 void Personal::displayPersonal()
 {
+    QSqlQuery query;
 
-    if(name.size() == 0)
-    {
-        cout << "No people to display!" << endl;
-    }
-    else
+    if(query.exec("SELECT name, gender, birth, death FROM persons"))
     {
         cout << "List of famous people: " << endl << endl;
-        for(unsigned int i = 0; i < name.size();i++)
-        {
-            cout << "Name: " << name[i] << endl
-                 << "Sex: " << gender[i] << endl
-                 << "Born: " << birth[i] << endl
-                 << "Died: " << death[i] << endl << endl;
+        while(query.next()) {
+            QString name   = query.value(0).toString();
+            QString gender = query.value(1).toString();
+            QString birth  = query.value(2).toString();
+            QString death  = query.value(3).toString();
+            qDebug() << "Name:" << name << endl
+                     << "Sex:" << gender << endl
+                     << "Born:" << birth << endl
+                     << "Died:" << death << endl;
         }
+
+    }
+    else {
+        cout << "No people to display!" << endl;
     }
 }
 
