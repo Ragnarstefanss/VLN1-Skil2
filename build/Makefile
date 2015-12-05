@@ -168,6 +168,7 @@ Makefile: ../TheFamous.pro ../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/featur
 		../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/features/yacc.prf \
 		../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/features/lex.prf \
 		../TheFamous.pro \
+		E:/Annad/Forrit/qt/new/5.5/mingw492_32/lib/Qt5Sql.prl \
 		E:/Annad/Forrit/qt/new/5.5/mingw492_32/lib/Qt5Core.prl
 	$(QMAKE) -spec win32-g++ "CONFIG+=debug" -o Makefile ..\TheFamous.pro
 ../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/features/spec_pre.prf:
@@ -279,6 +280,7 @@ Makefile: ../TheFamous.pro ../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/featur
 ../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/features/yacc.prf:
 ../../../Forrit/qt/new/5.5/mingw492_32/mkspecs/features/lex.prf:
 ../TheFamous.pro:
+E:/Annad/Forrit/qt/new/5.5/mingw492_32/lib/Qt5Sql.prl:
 E:/Annad/Forrit/qt/new/5.5/mingw492_32/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -spec win32-g++ "CONFIG+=debug" -o Makefile ..\TheFamous.pro

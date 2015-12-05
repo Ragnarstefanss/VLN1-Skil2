@@ -6,8 +6,11 @@
 #include <string>
 #include <stdio.h>
 #include <ctype.h>
+#include <QtSql>
 
 using namespace std;
+
+
 
 
 Personal::Personal()
@@ -325,6 +328,7 @@ void Personal::pushNewPersonal(string nam, string sex, string birt, string deat)
 
 void Personal::displayPersonal()
 {
+
     if(name.size() == 0)
     {
         cout << "No people to display!" << endl;

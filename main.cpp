@@ -17,17 +17,24 @@ void editingChoices(Personal& list);
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication a(argc, argv);
+
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "skil2.sqlite";
+    QString dbName = "E:/Annad/VLN/Skil2/skil2.sqlite";
     db.setDatabaseName(dbName);
 
     db.open();
 
-    QSqlQuery query(db);
+    /* Checking if database is open
+    if(!db.open())
+        cout << "Failed to open database";
+    else
+        cout << "Connected";
+    */
 
-    QCoreApplication a(argc, argv);
+
 
     Personal list;
     list.loadPersonal();                                      //Loads input from text files into vectors
@@ -54,7 +61,25 @@ int main(int argc, char *argv[])
 
         if(user_choice == 1)
         {
-            list.displayPersonal();
+            //list.displayPersonal();
+
+            QSqlQuery query;
+
+            if(query.exec("SELECT name, gender, birth, death FROM persons"))
+            {
+               while(query.next()) {
+                    QString name   = query.value(0).toString();
+                    QString gender = query.value(1).toString();
+                    QString birth  = query.value(2).toString();
+                    QString death  = query.value(3).toString();
+                    qDebug() << "Name:" << name << endl
+                             << "Sex:" << gender << endl
+                             << "Born:" << birth << endl
+                             << "Died:" << death << endl;
+               }
+            }
+
+
             cout << "What do you want to do next?" << endl;
         }
         if(user_choice == 2)
