@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include "personal.h"
 #include <fstream>
+#include <QtSql>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,6 +17,16 @@ void editingChoices(Personal& list);
 
 int main(int argc, char *argv[])
 {
+    // DATABASE
+    QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString dbName = "skil2.sqlite";
+    db.setDatabaseName(dbName);
+
+    db.open();
+
+    QSqlQuery query(db);
+
     QCoreApplication a(argc, argv);
 
     Personal list;
