@@ -288,22 +288,22 @@ void Personal::deletePersonal()
 void Personal::addPersonal(string name, int building_year, string type, bool built)
 {
     QSqlQuery query;
-    /*
+
+    QString qname(name.c_str());
+    QString qtype(type.c_str());
+
     query.prepare("INSERT INTO Tolvur (name, building_year, type, built) VALUES (:name, :building_year, :type, :built)");
-    query.bindValue(":name", name);
+    query.bindValue(":name", qname);
     query.bindValue(":building_year", building_year);
-    query.bindValue(":type", type);
+    query.bindValue(":type", qtype);
     query.bindValue(":built", built);
 
-    query.exec();
+   //query.exec();
 
     if(!query.exec())
     {
         cout << "nothing inserted";
     }
-    */
-   // string queryInsert = "INSERT INTO Tolvur (name, building_year, type, built) VALUES ('ari', 1995, 'Personal', 1)";
-   // query.exec(QString(queryInsert.c_str()));
 
     /*
     string name, buildin_year, type, built;
@@ -313,7 +313,7 @@ void Personal::addPersonal(string name, int building_year, string type, bool bui
     cout << "Enter the name of the person you wish to add: ";
     getline(cin, name);
     if(name == "")
-    {
+    {4
         cout << "No entry found!" << endl;
         cout << "Try again!" << endl << endl;
         goto NAME_LOOP;
@@ -473,6 +473,55 @@ void Personal::displayPersonal()
 
 void Personal::findbytype(string input, string type)
 {
+
+    QSqlQuery query;
+    QString qtype(type.c_str());
+    QString qinput(input.c_str());
+
+    query.prepare("SELECT name, building_year, type, built FROM Tolvur WHERE :type LIKE ':input%'");
+    query.bindValue(":type", qtype);
+    query.bindValue(":input", qinput);
+
+    if (!query.exec())
+            qDebug() << query.lastError();
+
+        while(query.next()) {
+            QString name          = query.value(0).toString();
+            QString building_year = query.value(1).toString();
+            QString type          = query.value(2).toString();
+            QString built         = query.value(3).toString();
+            qDebug() << "Name:" << name << endl
+                     << "Building Year:" << building_year << endl
+                     << "Type:" << type << endl
+                     << "Built:" << built << endl;
+        }
+
+
+
+    /*
+    QString leitarstrengur;
+
+    leitarstrengur = "SELECT name, building_year, type, built FROM Tolvur WHERE :type LIKE :input%";
+
+    QSqlQuery query;
+    QString qtype(type.c_str());
+    QString qinput(input.c_str());
+
+    query.prepare(leitarstrengur);
+    query.bindValue(":type", qtype);
+    query.bindValue(":input", qinput);
+    query.exec();
+
+    while(query.next())
+    {
+        qDebug() << "Name:" << query.value(0).toString() << endl
+                 << "Building Year:" << query.value(1).toString() << endl
+                 << "Type:" << query.value(2).toString() << endl
+                 << "Built:" << query.value(3).toString() << endl;
+    }
+
+    */
+    /*
     bool name_found = false;
     if(name.size() == 0)
     {
@@ -529,5 +578,6 @@ void Personal::findbytype(string input, string type)
         {
             cout << "Person does not exist" << endl << endl;
         }
-     }
+
+     }*/
 }

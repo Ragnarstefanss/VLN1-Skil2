@@ -116,7 +116,7 @@ void searchForPerson(Personal& list)
 
         cout << "Search for the name: ";
         getline(cin, name);
-        name[0] = toupper(name[0]);
+        //name[0] = toupper(name[0]);
 
         cout << endl;
         list.findbytype(name, type);
