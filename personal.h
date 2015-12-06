@@ -19,7 +19,7 @@ public:
     void displayPersonal();                                                  //Displays the list of people
     void displaySorted();                                                    //Displays the sorted list
 
-    void addPersonal();                                                      //Adds new person to the list
+    void addPersonal(string name, int building_year, string type, bool built);//Adds new person to the list
     void deletePersonal();                                                   //Removes a person from the list
     void pushNewPersonal(string nam, string sex, string birt, string deat);  //Pushes new person into vectors
     void removalAlgorithm(int pNumber);                                      //Removal magic happens in this function

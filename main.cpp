@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     Personal list;
-    list.loadPersonal();                                      //Loads input from text files into vectors
+    //list.loadPersonal();                                      //Loads input from text files into vectors
     int user_choice;
 
     while(true)
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
         cout << "1) Display the list" << endl
              << "2) Edit the list" << endl
              << "3) Display the list sorted" << endl
-             << "4) Search for a person in the list" << endl
+             << "4) Search for a computer in the list" << endl
              << "5) Exit the program" << endl;
 
         cout << "Pick a number: ";
@@ -161,6 +161,7 @@ void displayListSorted(Personal& list)
     {
          int sortChoice;
          displaySortChoices();
+
          cout << "Pick a number: ";
          cin >> sortChoice;
          cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
@@ -212,12 +213,33 @@ void editingChoices(Personal& list)
          if(listEdit == 1)
          {
              cout << endl;
-             list.addPersonal();
+
+             string name;
+             int building_year;
+             string type;
+             bool built;
+
+             cout << "Enter name: ";
+             cin >> name;
+
+             cout << "Building year: ";
+             cin >> building_year;
+
+             cout << "Enter type of computer: ";
+             cin >> type;
+
+             cout << "Built (Enter 0 if the machine was not built. Enter 1 if machine was buolt)";
+             cin >> built;
+
+
+            list.addPersonal(name, building_year, type, built);
+
+            // list.addPersonal();
          }
          else
          {
              cout << endl;
-             list.deletePersonal();
+             //list.deletePersonal();
          }
 }
 
@@ -226,18 +248,18 @@ void displaySortChoices()
 {
     cout << "1) Sort by names in ascending order" << endl
          << "2) Sort by names in descending order" << endl
-         << "3) Sort by gender: females" << endl
-         << "4) Sort by gender: males" << endl
-         << "5) Sort by year of birth in ascending order" << endl
-         << "6) Sort by year of birth in descending order" << endl
-         << "7) Sort by year of death in ascending order" << endl
-         << "8) Sort by year of death in descending order" << endl;
+         << "3) Sort by building year in ascending order" << endl
+         << "4) Sort by building year in descending order" << endl
+         << "5) Sort by computer type in ascending order" << endl
+         << "6) Sort by computer type in descending order" << endl
+         << "7) Sort by if computer was built" << endl
+         << "8) Sort by if computer was not built" << endl;
 }
 
 void displayFindChoices()
 {
     cout << "1) Search by name" << endl
-         << "2) Search by gender" << endl
-         << "3) Search by birth year" << endl
-         << "4) Search by death year" << endl << endl;
+         << "2) Search by buildin year" << endl
+         << "3) Search by computer type" << endl
+         << "4) Search by built" << endl << endl;
 }
