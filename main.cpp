@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     Personal list;
-    //list.loadPersonal();                                      //Loads input from text files into vectors
+
     int user_choice;
 
     while(true)
@@ -212,29 +212,8 @@ void editingChoices(Personal& list)
          }
          if(listEdit == 1)
          {
-             cout << endl;
-
-             string name;
-             int building_year;
-             string type;
-             bool built;
-
-             cout << "Enter name: ";
-             cin >> name;
-
-             cout << "Building year: ";
-             cin >> building_year;
-
-             cout << "Enter type of computer: ";
-             cin >> type;
-
-             cout << "Built (Enter 0 if the machine was not built. Enter 1 if machine was buolt)";
-             cin >> built;
-
-
-            list.addPersonal(name, building_year, type, built);
-
-            // list.addPersonal();
+            cout << endl;
+            list.addPersonal();
          }
          else
          {
@@ -252,8 +231,8 @@ void displaySortChoices()
          << "4) Sort by building year in descending order" << endl
          << "5) Sort by computer type in ascending order" << endl
          << "6) Sort by computer type in descending order" << endl
-         << "7) Sort by if computer was built" << endl
-         << "8) Sort by if computer was not built" << endl;
+         << "7) Sort by computers that were built" << endl
+         << "8) Sort by computers that were not built" << endl;
 }
 
 void displayFindChoices()

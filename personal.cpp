@@ -11,14 +11,13 @@
 using namespace std;
 
 
-
 Personal::Personal()
 {
 
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "E:/Annad/VLN/VLN1-Skil2/Database/skil2.sqlite";
+    QString dbName = "C:/Users/Maciuska/Desktop/h/Database/skil2.sqlite";
     db.setDatabaseName(dbName);
     db.open();
     QSqlQuery query(db);
@@ -27,60 +26,47 @@ Personal::Personal()
 
 void Personal::sort(int choice)
 {
-
    QSqlQuery query;
    if(choice == 1)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name ASC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                        << "Built:" << built << endl;
+       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name ASC");
+           cout << "List of famous computers sorted by name(ASC): " << endl << endl;
+           while(query.next())
+           {
+               QString name   = query.value(0).toString();
+               QString building_year = query.value(1).toString();
+               QString type  = query.value(2).toString();
+               QString built  = query.value(3).toString();
+               qDebug() << "Name:" << name << endl
+                        << "Building Year:" << building_year << endl
+                        << "Type:" << type << endl
+                        << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
      }
+
    if(choice == 2)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name DESC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                        << "Built:" << built << endl;
+
+       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name DESC");
+           cout << "List of famous computers sorted by name(DESC): " << endl << endl;
+           while(query.next())
+           {
+               QString name   = query.value(0).toString();
+               QString building_year = query.value(1).toString();
+               QString type  = query.value(2).toString();
+               QString built  = query.value(3).toString();
+               qDebug() << "Name:" << name << endl
+                        << "Building Year:" << building_year << endl
+                        << "Type:" << type << endl
+                        << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
      }
 
    if(choice == 3)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY building_year ASC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
+
+      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY building_year ASC");
+          cout << "List of famous computers sorted by builth year(ASC): " << endl << endl;
           while(query.next())
           {
               QString name   = query.value(0).toString();
@@ -90,21 +76,16 @@ void Personal::sort(int choice)
               qDebug() << "Name:" << name << endl
                        << "Building Year:" << building_year << endl
                        << "Type:" << type << endl
-                        << "Built:" << built << endl;
+                       << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
 
      }
 
    if(choice == 4)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY building_year DESC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
+
+      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY building_year DESC");
+          cout << "List of famous computers sorted by builth year(DESC): " << endl << endl;
           while(query.next())
           {
               QString name   = query.value(0).toString();
@@ -114,21 +95,15 @@ void Personal::sort(int choice)
               qDebug() << "Name:" << name << endl
                        << "Building Year:" << building_year << endl
                        << "Type:" << type << endl
-                        << "Built:" << built << endl;
+                       << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
    }
 
    if(choice == 5)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type ASC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
+
+      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type ASC");
+          cout << "List of famous computers sorted by type(ASC): " << endl << endl;
           while(query.next())
           {
               QString name   = query.value(0).toString();
@@ -138,21 +113,15 @@ void Personal::sort(int choice)
               qDebug() << "Name:" << name << endl
                        << "Building Year:" << building_year << endl
                        << "Type:" << type << endl
-                        << "Built:" << built << endl;
+                       << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
      }
 
    if(choice == 6)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type DESC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
+
+      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type DESC");
+          cout << "List of famous computers sorted by type(DESC): " << endl << endl;
           while(query.next())
           {
               QString name   = query.value(0).toString();
@@ -162,21 +131,15 @@ void Personal::sort(int choice)
               qDebug() << "Name:" << name << endl
                        << "Building Year:" << building_year << endl
                        << "Type:" << type << endl
-                        << "Built:" << built << endl;
+                       << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
      }
 
    if(choice == 7)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built DESC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
+
+      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built DESC");
+          cout << "List of famous computers sorted by computers that were built: " << endl << endl;
           while(query.next())
           {
               QString name   = query.value(0).toString();
@@ -186,21 +149,15 @@ void Personal::sort(int choice)
               qDebug() << "Name:" << name << endl
                        << "Building Year:" << building_year << endl
                        << "Type:" << type << endl
-                        << "Built:" << built << endl;
+                       << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
      }
 
    if(choice == 8)
    {
-      if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built ASC"))
-      {
-          cout << "List of famous computers: " << endl << endl;
+
+      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built ASC");
+          cout << "List of famous computers sorted by computers that were not built: " << endl << endl;
           while(query.next())
           {
               QString name   = query.value(0).toString();
@@ -210,36 +167,9 @@ void Personal::sort(int choice)
               qDebug() << "Name:" << name << endl
                        << "Building Year:" << building_year << endl
                        << "Type:" << type << endl
-                        << "Built:" << built << endl;
+                       << "Built(0 = No/1 = Yes):" << built << endl;
            }
-        }
-
-      else {
-         cout << "No computers to display!" << endl;
-       }
-
      }
-
-   if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built ASC"))
-   {
-       cout << "List of famous computers: " << endl << endl;
-       while(query.next())
-       {
-           QString name   = query.value(0).toString();
-           QString building_year = query.value(1).toString();
-           QString type  = query.value(2).toString();
-           QString built  = query.value(3).toString();
-           qDebug() << "Name:" << name << endl
-                    << "Building Year:" << building_year << endl
-                    << "Type:" << type << endl
-                     << "Built:" << built << endl;
-        }
-     }
-
-   else {
-      cout << "No computers to display!" << endl;
-    }
-
 }
 /*
 
@@ -285,35 +215,21 @@ void Personal::deletePersonal()
 }
 
 */
-void Personal::addPersonal(string name, int building_year, string type, bool built)
+void Personal::addPersonal()
 {
     QSqlQuery query;
 
-    QString qname(name.c_str());
-    QString qtype(type.c_str());
-
-    query.prepare("INSERT INTO Tolvur (name, building_year, type, built) VALUES (:name, :building_year, :type, :built)");
-    query.bindValue(":name", qname);
-    query.bindValue(":building_year", building_year);
-    query.bindValue(":type", qtype);
-    query.bindValue(":built", built);
-
-   //query.exec();
-
-    if(!query.exec())
-    {
-        cout << "nothing inserted";
-    }
-
-    /*
-    string name, buildin_year, type, built;
+    string name, type, buildYR, pcBuilt;
+    int building_year;
+    bool built;
     char c;
 
+
     NAME_LOOP:
-    cout << "Enter the name of the person you wish to add: ";
+    cout << "Enter the name of the computer you wish to add: ";
     getline(cin, name);
     if(name == "")
-    {4
+    {
         cout << "No entry found!" << endl;
         cout << "Try again!" << endl << endl;
         goto NAME_LOOP;
@@ -337,50 +253,22 @@ void Personal::addPersonal(string name, int building_year, string type, bool bui
     cout << endl;
 
 
-    SEX_LOOP:
-    cout << "Enter the gender: ";
-    getline(cin, sex);
+    YEAR_LOOP:
+    cout << "Enter the year the computer was built: ";
+    getline(cin, buildYR);
 
-    while (sex == "")
+    while (buildYR == "")
     {
         cout << "No entry found!" << endl;
         cout << "Try again!" << endl << endl;
-        goto SEX_LOOP;
+        goto YEAR_LOOP;
     }
 
-    while((sex != "Male") && (sex != "male") && (sex != "Female") && (sex != "female"))
+    if(buildYR.length() == 4)
     {
-        cout << "Wrong input! Enter either male or female, no transsexuals allowed!" << endl;
-        cout << "Try again!" << endl << endl;
-        goto SEX_LOOP;
-    }
-
-    if(sex == "female")
-    {
-        sex[0] = toupper(sex[0]);
-    }
-
-    if(sex == "male")
-    {
-        sex[0] = toupper(sex[0]);
-    }
-    cout << endl;
-
-
-    BIRTH_LOOP:
-    cout << "Enter the year of birth: ";
-    getline(cin, birth);
-    while (birth == "")
-    {
-        cout << "No entry found!" << endl;
-        cout << "Try again!" << endl << endl;
-        goto BIRTH_LOOP;
-    }
-    if(birth.length() == 4)
-    {
-        for (unsigned int i = 0; i < birth.length(); i++)
+        for (unsigned int i = 0; i < buildYR.length(); i++)
         {
-            c = birth.at(i);
+            c = buildYR.at(i);
             if ((c >= '0' && c <= '9'))
             {
                        //Right input
@@ -389,7 +277,7 @@ void Personal::addPersonal(string name, int building_year, string type, bool bui
             {
                 cout << "Wrong year input!" << endl;
                 cout << "Input a year containing exactly four numbers!" << endl << endl;
-                goto BIRTH_LOOP;
+                goto YEAR_LOOP;
             }
         }
     }
@@ -397,62 +285,88 @@ void Personal::addPersonal(string name, int building_year, string type, bool bui
     {
         cout << "Wrong year input!" << endl;
         cout << "Input a year containing exactly four numbers!" << endl << endl;
-        goto BIRTH_LOOP;
+        goto YEAR_LOOP;
     }
+    building_year = atoi(buildYR.c_str());
     cout << endl;
 
 
-    DEATH_LOOP:
-    cout << "Enter the year of death (if person is still alive enter a '-' instead): ";
-    getline(cin, death);
-    while (death == "")
+    TYPE_LOOP:
+    cout << "Enter the type of the computer: ";
+    getline(cin, type);
+    while (type == "")
     {
         cout << "No entry found!" << endl;
         cout << "Try again!" << endl << endl;
-        goto DEATH_LOOP;
+        goto TYPE_LOOP;
     }
-    if(death.length() == 4)
+    for (unsigned int i = 0; i < type.length(); i++)
     {
-        for (unsigned int i = 0; i < death.length(); i++)
+        c = type.at(i);
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == ' '))
         {
-            c = death.at(i);
-            if ((c >= '0' && c <= '9'))
-            {
-                       //Right input
-            }
-            else
-            {
-                cout << "Wrong year input!" << endl;
-                cout << "Input a year containing exactly four numbers or a '-' "
-                        "if the person is still alive" << endl << endl;
-                goto DEATH_LOOP;
-            }
+                   //Right input
+        }
+        else
+        {
+            cout << "Only alphabetic letters and spaces are allowed!" << endl;
+            cout << "Try again!" << endl << endl;
+            goto TYPE_LOOP;
         }
     }
-    else if(death == "-")
+    type[0] = toupper(type[0]);                                         //Makes the first character of a name a capital letter
+    cout << endl;
+
+
+    BUILT_LOOP:
+    cout << "Enter whether the computer was built(YES/NO): ";
+    getline(cin, pcBuilt);
+    while (pcBuilt == "")
     {
-        //Right input
+        cout << "No entry found!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto BUILT_LOOP;
     }
-    else
+
+    while((pcBuilt != "Yes") && (pcBuilt != "yes") && (pcBuilt != "YES") && (pcBuilt != "No") && (pcBuilt != "no") && (pcBuilt != "NO"))
     {
-        cout << "Wrong year input!" << endl;
-        cout << "Input a year containing exactly four numbers or a '-' "
-                "if the person is alive" << endl << endl;
-        goto DEATH_LOOP;
+        cout << "Wrong input! Enter either yes or no!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto BUILT_LOOP;
+    }
+
+    if((pcBuilt == "Yes") || (pcBuilt == "yes") || (pcBuilt == "YES"))
+    {
+        pcBuilt[0] = toupper(pcBuilt[0]);
+        built = true;
+    }
+
+    if((pcBuilt == "No") || (pcBuilt == "no") || (pcBuilt == "NO"))
+    {
+        pcBuilt[0] = toupper(pcBuilt[0]);
+        built = false;
     }
     cout << endl;
 
-    pushNewPersonal(name, sex, birth, death);           //Pushes collected data to vectors
-    writePersonal();                                    //Writes new vectors to text files
-    */
+
+
+    QString qname(name.c_str());
+    QString qtype(type.c_str());
+    query.prepare("INSERT INTO Tolvur (name, building_year, type, built) VALUES (:name, :building_year, :type, :built)");
+    query.bindValue(":name", qname);
+    query.bindValue(":building_year", building_year);
+    query.bindValue(":type", qtype);
+    query.bindValue(":built", built);
+
+    query.exec();
 }
 
 void Personal::displayPersonal()
 {
     QSqlQuery query;
 
-    if(query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name ASC"))
-    {
+    query.exec("SELECT name, building_year, type, built FROM Tolvur");
+
         cout << "List of famous computers: " << endl << endl;
         while(query.next()) {
             QString name   = query.value(0).toString();
@@ -462,12 +376,8 @@ void Personal::displayPersonal()
             qDebug() << "Name:" << name << endl
                      << "Building Year:" << building_year << endl
                      << "Type:" << type << endl
-                     << "Built:" << built << endl;
+                     << "Built(0 = No/1 = Yes):" << built << endl;
         }
-    }
-    else {
-        cout << "No computers to display!" << endl;
-    }
 }
 
 
@@ -493,7 +403,7 @@ void Personal::findbytype(string input, string type)
             qDebug() << "Name:" << name << endl
                      << "Building Year:" << building_year << endl
                      << "Type:" << type << endl
-                     << "Built:" << built << endl;
+                     << "Built(0 = No/1 = Yes):" << built << endl;
         }
 
 
@@ -517,7 +427,7 @@ void Personal::findbytype(string input, string type)
         qDebug() << "Name:" << query.value(0).toString() << endl
                  << "Building Year:" << query.value(1).toString() << endl
                  << "Type:" << query.value(2).toString() << endl
-                 << "Built:" << query.value(3).toString() << endl;
+                 << "Built(0 = No/1 = Yes):" << query.value(3).toString() << endl;
     }
 
     */
