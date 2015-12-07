@@ -17,7 +17,7 @@ Personal::Personal()
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "C:/Users/Maciuska/Desktop/h/Database/skil2.sqlite";
+    QString dbName = "skil2.sqlite";
     db.setDatabaseName(dbName);
     db.open();
     QSqlQuery query(db);
