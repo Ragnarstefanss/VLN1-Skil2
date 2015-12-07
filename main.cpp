@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
 void searchForPerson(Personal& list)
 {
-    string name, gender, birth_year, death_year, type;
+    string name, building_year, type, built, comp_type;
     displayFindChoices();
     int choice;
     cout << "Pick a number: ";
@@ -125,33 +125,32 @@ void searchForPerson(Personal& list)
 
    else if(choice == 2)
     {
-        type = "gender";
+        type = "building_year";
 
-        cout << "Search for gender: ";
-        cin >> gender;
-        gender[0] = toupper(gender[0]);
+        cout << "Search by building year: ";
+        cin >> building_year;
 
-        list.findbytype(gender, type);
+        list.findbytype(building_year, type);
     }
 
     else if(choice == 3)
     {
-        type = "birth";
+        type = "type";
 
-        cout << "Search for birth year: ";
-        cin >> birth_year;
+        cout << "Search by type: ";
+        cin >> comp_type;
 
-        list.findbytype(birth_year, type);
+        list.findbytype(comp_type, type);
     }
 
     else if(choice == 4)
     {
-        type = "death";
+        type = "built";
 
-        cout << "Search for death year: ";
-        cin >> death_year;
+        cout << "Search by built: ";
+        cin >> built;
 
-        list.findbytype(death_year, type);
+        list.findbytype(built, type);
     }
 }
 

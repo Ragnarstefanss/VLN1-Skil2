@@ -17,7 +17,8 @@ Personal::Personal()
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "skil2.sqlite";
+    QString dbName = "E:/Annad/VLN/VLN1-Skil2/Database/skil2.sqlite";
+    //QString dbName = "skil2.sqlite";
     db.setDatabaseName(dbName);
     db.open();
     QSqlQuery query(db);
@@ -383,111 +384,26 @@ void Personal::displayPersonal()
 
 void Personal::findbytype(string input, string type)
 {
+    QString qinput(input.c_str());
+    QString qtype(type.c_str());
 
     QSqlQuery query;
-    QString qtype(type.c_str());
-    QString qinput(input.c_str());
+    query.prepare("SELECT name, building_year, type, built FROM Tolvur WHERE "+ qtype + " LIKE '"+qinput+"%'");
+    query.exec();
 
-    query.prepare("SELECT name, building_year, type, built FROM Tolvur WHERE :type LIKE ':input%'");
-    query.bindValue(":type", qtype);
-    query.bindValue(":input", qinput);
 
     if (!query.exec())
             qDebug() << query.lastError();
 
-        while(query.next()) {
-            QString name          = query.value(0).toString();
-            QString building_year = query.value(1).toString();
-            QString type          = query.value(2).toString();
-            QString built         = query.value(3).toString();
-            qDebug() << "Name:" << name << endl
-                     << "Building Year:" << building_year << endl
-                     << "Type:" << type << endl
-                     << "Built(0 = No/1 = Yes):" << built << endl;
-        }
-
-
-
-    /*
-    QString leitarstrengur;
-
-    leitarstrengur = "SELECT name, building_year, type, built FROM Tolvur WHERE :type LIKE :input%";
-
-    QSqlQuery query;
-    QString qtype(type.c_str());
-    QString qinput(input.c_str());
-
-    query.prepare(leitarstrengur);
-    query.bindValue(":type", qtype);
-    query.bindValue(":input", qinput);
-    query.exec();
-
     while(query.next())
     {
-        qDebug() << "Name:" << query.value(0).toString() << endl
-                 << "Building Year:" << query.value(1).toString() << endl
-                 << "Type:" << query.value(2).toString() << endl
-                 << "Built(0 = No/1 = Yes):" << query.value(3).toString() << endl;
+        QString name          = query.value(0).toString();
+        QString building_year = query.value(1).toString();
+        QString type          = query.value(2).toString();
+        QString built         = query.value(3).toString();
+        qDebug() << "Name:" << name << endl
+                 << "Building Year:" << building_year << endl
+                 << "Type:" << type << endl
+                 << "Built(0 = No/1 = Yes):" << built << endl;
     }
-
-    */
-    /*
-    bool name_found = false;
-    if(name.size() == 0)
-    {
-        cout << "No person matched that search string!" << endl << endl;
-    }
-    else
-    {
-        string temp, searchedName;
-        for(unsigned int i = 0; i < name.size();i++)
-        {
-            if(type == "name")
-            {
-                temp = name[i];
-                for(unsigned int g = 0; g < input.size(); g++)
-                {
-                    if (input[g] == temp[g])
-                    {
-                        //Character in input string number 'g' is the same as character number g in
-                        //the name we are looking for.
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    if(g == input.size() - 1)
-                    {
-                        searchedName = temp;     //Found all characters
-                    }
-                }
-            }
-            else if(type == "gender")
-            {
-                temp = gender[i];
-            }
-            else if(type == "birth")
-            {
-                temp = birth[i];
-            }
-            else if(type == "death")
-            {
-                temp = death[i];
-            }
-
-            if(input == temp || searchedName == temp)
-            {
-               cout << "Name: " << name[i] << endl
-                    << "Sex: " << gender[i] << endl
-                    << "Born: " << birth[i] << endl
-                    << "Died: " << death[i] << endl << endl;
-                name_found = true;
-            }
-        }
-        if(name_found == false)
-        {
-            cout << "Person does not exist" << endl << endl;
-        }
-
-     }*/
 }
