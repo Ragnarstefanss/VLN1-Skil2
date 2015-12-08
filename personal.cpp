@@ -24,6 +24,21 @@ Personal::Personal()
     QSqlQuery query(db);
 }
 
+void displayInformation(QSqlQuery query)
+{
+    while(query.next())
+    {
+        QString name   = query.value(0).toString();
+        QString building_year = query.value(1).toString();
+        QString type  = query.value(2).toString();
+        QString built  = query.value(3).toString();
+        qDebug() << "Name:" << name << endl
+                 << "Building Year:" << building_year << endl
+                 << "Type:" << type << endl
+                 << "Built(0 = No/1 = Yes):" << built << endl;
+    }
+}
+
 
 void Personal::sort(int choice)
 {
@@ -31,146 +46,58 @@ void Personal::sort(int choice)
    if(choice == 1)
    {
        query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name ASC");
-           cout << "List of famous computers sorted by name(ASC): " << endl << endl;
-           while(query.next())
-           {
-               QString name   = query.value(0).toString();
-               QString building_year = query.value(1).toString();
-               QString type  = query.value(2).toString();
-               QString built  = query.value(3).toString();
-               qDebug() << "Name:" << name << endl
-                        << "Building Year:" << building_year << endl
-                        << "Type:" << type << endl
-                        << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-     }
+       cout << "List of famous computers sorted by name(ASC): " << endl << endl;
+       displayInformation(query);
+   }
 
    if(choice == 2)
    {
-
        query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY name DESC");
-           cout << "List of famous computers sorted by name(DESC): " << endl << endl;
-           while(query.next())
-           {
-               QString name   = query.value(0).toString();
-               QString building_year = query.value(1).toString();
-               QString type  = query.value(2).toString();
-               QString built  = query.value(3).toString();
-               qDebug() << "Name:" << name << endl
-                        << "Building Year:" << building_year << endl
-                        << "Type:" << type << endl
-                        << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-     }
+       cout << "List of famous computers sorted by name(DESC): " << endl << endl;
+       displayInformation(query);
+   }
 
    if(choice == 3)
    {
-
       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY building_year ASC");
-          cout << "List of famous computers sorted by builth year(ASC): " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                       << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-
-     }
+      cout << "List of famous computers sorted by builth year(ASC): " << endl << endl;
+      displayInformation(query);
+   }
 
    if(choice == 4)
    {
-
       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY building_year DESC");
-          cout << "List of famous computers sorted by builth year(DESC): " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                       << "Built(0 = No/1 = Yes):" << built << endl;
-           }
+      cout << "List of famous computers sorted by builth year(DESC): " << endl << endl;
+      displayInformation(query);
    }
 
    if(choice == 5)
    {
-
       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type ASC");
-          cout << "List of famous computers sorted by type(ASC): " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                       << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-     }
+      cout << "List of famous computers sorted by type(ASC): " << endl << endl;
+      displayInformation(query);
+   }
 
    if(choice == 6)
    {
-
-      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type DESC");
-          cout << "List of famous computers sorted by type(DESC): " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                       << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-     }
+       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY type DESC");
+       cout << "List of famous computers sorted by type(DESC): " << endl << endl;
+       displayInformation(query);
+    }
 
    if(choice == 7)
    {
-
-      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built DESC");
-          cout << "List of famous computers sorted by computers that were built: " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                       << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-     }
+       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built DESC");
+       cout << "List of famous computers sorted by computers that were built: " << endl << endl;
+       displayInformation(query);
+   }
 
    if(choice == 8)
    {
-
-      query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built ASC");
-          cout << "List of famous computers sorted by computers that were not built: " << endl << endl;
-          while(query.next())
-          {
-              QString name   = query.value(0).toString();
-              QString building_year = query.value(1).toString();
-              QString type  = query.value(2).toString();
-              QString built  = query.value(3).toString();
-              qDebug() << "Name:" << name << endl
-                       << "Building Year:" << building_year << endl
-                       << "Type:" << type << endl
-                       << "Built(0 = No/1 = Yes):" << built << endl;
-           }
-     }
+       query.exec("SELECT name, building_year, type, built FROM Tolvur ORDER BY built ASC");
+       cout << "List of famous computers sorted by computers that were not built: " << endl << endl;
+       displayInformation(query);
+   }
 }
 /*
 
@@ -365,20 +292,9 @@ void Personal::addPersonal()
 void Personal::displayPersonal()
 {
     QSqlQuery query;
-
     query.exec("SELECT name, building_year, type, built FROM Tolvur");
-
-        cout << "List of famous computers: " << endl << endl;
-        while(query.next()) {
-            QString name   = query.value(0).toString();
-            QString building_year = query.value(1).toString();
-            QString type  = query.value(2).toString();
-            QString built  = query.value(3).toString();
-            qDebug() << "Name:" << name << endl
-                     << "Building Year:" << building_year << endl
-                     << "Type:" << type << endl
-                     << "Built(0 = No/1 = Yes):" << built << endl;
-        }
+    cout << "List of famous computers: " << endl << endl;
+    displayInformation(query);
 }
 
 
@@ -395,15 +311,6 @@ void Personal::findbytype(string input, string type)
     if (!query.exec())
             qDebug() << query.lastError();
 
-    while(query.next())
-    {
-        QString name          = query.value(0).toString();
-        QString building_year = query.value(1).toString();
-        QString type          = query.value(2).toString();
-        QString built         = query.value(3).toString();
-        qDebug() << "Name:" << name << endl
-                 << "Building Year:" << building_year << endl
-                 << "Type:" << type << endl
-                 << "Built(0 = No/1 = Yes):" << built << endl;
-    }
+    displayInformation(query);
 }
+
