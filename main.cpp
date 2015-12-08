@@ -99,7 +99,7 @@ void ownership(Personal& list)
     }
     cout << endl;
 
-    while((choice != 1) && (choice != 2))
+    if ((choice < 1) || (choice > 2))
     {
         cout <<"Wrong number!" << endl
              << "1) Create ownership between computer and person" << endl
@@ -114,16 +114,12 @@ void ownership(Personal& list)
         }
         cout << endl;
     }
+
     if(choice == 1)
     {
-        string talva;
-        string person;
-
-
-
         list.createOwnership();
     }
-    else
+    if(choice == 2)
     {
        list.showOwnership();
     }
