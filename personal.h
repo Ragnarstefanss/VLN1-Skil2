@@ -13,18 +13,16 @@ public:
 
     void displayPersonal();                                                  //Displays the list of people
 
-    void addComputer();                                                      //Adds new computer to the list
-    void addPersonal();                                                      //Adds new person to the list
-    void deletePersonal();                                                   //Removes a person from the list
+    void addComputer();                                                      //Lets user add a new computer to the list
+    void addPersonal();                                                      //Lets user add a new person to the list
+    void deletePersonal();                                                   //Lets user remove a person from the list
+    void deleteComputer();                                                   //Lets user removes a computer from the list
 
     void sortByComputers();                                                  //Sorts the computers list depending on users choice
     void sortByPeople();                                                     //Sorts the people list depenging on users choice
 
-    void findByComputer();                                                   //Searchs the list for names, genders, dates of births and deaths
-    void findByPerson();
-
-    void createOwnership();
-    void showOwnership();
+    void findByComputer();                                                   //Searches the list for a computer depending on users choice
+    void findByPerson();                                                     //Searches the list for a person depending on users choice
 };
 
 #endif // PERSONAL_H

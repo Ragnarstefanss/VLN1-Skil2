@@ -12,7 +12,6 @@ using namespace std;
 void displayListSorted(Personal& list);
 void searchForPerson(Personal& list);
 void editingChoices(Personal& list);
-void ownership(Personal& list);
 
 int main(int argc, char *argv[])
 {
@@ -28,8 +27,7 @@ int main(int argc, char *argv[])
              << "2) Edit the list" << endl
              << "3) Display the list sorted" << endl
              << "4) Search the list" << endl
-             << "5) Manage Ownerships" << endl
-             << "6) Exit the program" << endl;
+             << "5) Exit the program" << endl;
 
         cout << "Pick a number: ";
         cin >> user_choice;
@@ -62,12 +60,7 @@ int main(int argc, char *argv[])
             searchForPerson(list);
             cout << "What do you want to do next?" << endl;
         }
-        if(user_choice == 5)
-        {
-            ownership(list);
-            cout << "What do you want to do next?" << endl;
-        }
-        if (user_choice == 6)
+        if (user_choice == 5)
         {
             cout <<"Thank you for using the program!" << endl
                  <<"Goodbye!" << endl;
@@ -82,48 +75,7 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-void ownership(Personal& list)
-{
-    int choice;
 
-    cout << "1) Create ownership between computer and person" << endl
-         << "2) Show ownerships" << endl
-         << "Pick a number: ";
-    cin >> choice;
-    cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
-
-    if (cin.fail())                                       //Checks if input is a number
-    {
-        cin.clear();
-        cin.ignore(100, '\n');
-    }
-    cout << endl;
-
-    if ((choice < 1) || (choice > 2))
-    {
-        cout <<"Wrong number!" << endl
-             << "1) Create ownership between computer and person" << endl
-             << "2) Show ownerships" << endl
-             << "Pick a number: ";
-        cin >> choice;
-        cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
-        if (cin.fail())                                 //Checks if input is a number
-        {
-            cin.clear();
-            cin.ignore(100, '\n');
-        }
-        cout << endl;
-    }
-
-    if(choice == 1)
-    {
-        list.createOwnership();
-    }
-    if(choice == 2)
-    {
-       list.showOwnership();
-    }
-}
 
 
 void searchForPerson(Personal& list)
@@ -209,6 +161,8 @@ void editingChoices(Personal& list)
     cout << "What do you want to do?" << endl
          << "1) Add a person to the list" << endl
          << "2) Add a computer to the list" << endl
+         << "3) Remove a person from the list" << endl
+         << "4) Remove a computer from the list" << endl
          << "Pick a number: ";
          cin >> listEdit;
          cin.ignore();                                              //þessi lína kemur í veg fyrir að það sendist inn empty input
@@ -217,9 +171,9 @@ void editingChoices(Personal& list)
              cin.clear();
              cin.ignore(100, '\n');
          }
-         while((listEdit != 1) && (listEdit != 2))
+         while((listEdit < 1) || (listEdit > 4))
          {
-             cout <<"Choose either option 1 or 2!" << endl
+             cout << "Wrong number!" << endl
                   << "Pick a number: ";
              cin >> listEdit;
              cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
@@ -234,9 +188,19 @@ void editingChoices(Personal& list)
             cout << endl;
             list.addPersonal();
          }
-         else
+         else if(listEdit == 2)
          {
              cout << endl;
              list.addComputer();
+         }
+         else if(listEdit == 3)
+         {
+             cout << endl;
+             list.deletePersonal();
+         }
+         else
+         {
+             cout << endl;
+             list.deleteComputer();
          }
 }
