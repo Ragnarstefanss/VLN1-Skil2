@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <QtSql>
+#include <windows.h>
 
 using namespace std;
 
@@ -604,18 +605,70 @@ void Personal::addPersonal()
     query.exec();
 }
 
+// ownership
 void Personal::createOwnership()
 {
+    cout << "Choose an id for desired computer";
+    Sleep(2000); // læt forritið bíða í 2 sek svo það sé hægt að lesa línuna fyrir ofan
+
     QSqlQuery query;
-    query.exec("SELECT t.name, p.name FROM ownership own JOIN persons p ON p.id = own.persons_id JOIN Tolvur t ON t.id = own.tolvu_id");
+    query.exec("SELECT id, name, building_year, type FROM Tolvur");
 
     while(query.next())
     {
-        QString talva_name   = query.value(0).toString();
-        QString person_name = query.value(1).toString();
-        qDebug() << "Computer name:" << talva_name << endl
-                 << "Person name:" << person_name << endl;
+        QString id   = query.value(0).toString();
+        QString name = query.value(1).toString();
+        QString building_year  = query.value(2).toString();
+        QString type  = query.value(3).toString();
+        qDebug() << "ID:" << id << endl
+                 << "Name:" << name << endl
+                 << "Building Year:" << building_year << endl
+                 << "Type:" << type << endl;
     }
+
+    int talva_id;
+    cout << "ID: ";
+    cin >> talva_id;
+
+    cout << endl;
+
+    cout << "Choose an id for desired person";
+    Sleep(2000); // læt forritið bíða í 2 sek svo það sé hægt að lesa línuna fyrir ofan
+
+    QSqlQuery query2;
+    query2.exec("SELECT id, name, gender, birth, death FROM persons");
+
+    while(query2.next())
+    {
+        QString name   = query2.value(0).toString();
+        QString gender = query2.value(1).toString();
+        QString birth  = query2.value(2).toString();
+        QString death  = query2.value(3).toString();
+        qDebug() << "Name:" << name << endl
+                 << "Gender:" << gender << endl
+                 << "Birth year:" << birth << endl
+                 << "Death year:" << death << endl;
+    }
+
+    int person_id;
+    cout << "ID: ";
+    cin >> person_id;
+
+    QSqlQuery sendainn;
+
+    sendainn.prepare("INSERT INTO ownership (tolvu_id, persons_id) VALUES (:talva_id,:person_id)");
+    sendainn.bindValue(":talva_id", talva_id);
+    sendainn.bindValue(":person_id", person_id);
+
+    if(sendainn.exec())
+    {
+       cout << "Ownership has been created" << endl;
+    }
+    else
+    {
+        cout << "Could not send data" << endl;
+    }
+
 }
 
 void Personal::showOwnership()

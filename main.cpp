@@ -116,6 +116,11 @@ void ownership(Personal& list)
     }
     if(choice == 1)
     {
+        string talva;
+        string person;
+
+
+
         list.createOwnership();
     }
     else
