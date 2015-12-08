@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include "personal.h"
 #include <fstream>
+#include <QtSql>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -19,7 +20,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     Personal list;
-    list.loadPersonal();                                      //Loads input from text files into vectors
+
     int user_choice;
 
     while(true)
@@ -27,7 +28,7 @@ int main(int argc, char *argv[])
         cout << "1) Display the list" << endl
              << "2) Edit the list" << endl
              << "3) Display the list sorted" << endl
-             << "4) Search for a person in the list" << endl
+             << "4) Search for a computer in the list" << endl
              << "5) Exit the program" << endl;
 
         cout << "Pick a number: ";
@@ -81,7 +82,7 @@ int main(int argc, char *argv[])
 
 void searchForPerson(Personal& list)
 {
-    string name, gender, birth_year, death_year, type;
+    string name, building_year, type, built, comp_type;
     displayFindChoices();
     int choice;
     cout << "Pick a number: ";
@@ -115,7 +116,7 @@ void searchForPerson(Personal& list)
 
         cout << "Search for the name: ";
         getline(cin, name);
-        name[0] = toupper(name[0]);
+        //name[0] = toupper(name[0]);
 
         cout << endl;
         list.findbytype(name, type);
@@ -124,33 +125,32 @@ void searchForPerson(Personal& list)
 
    else if(choice == 2)
     {
-        type = "gender";
+        type = "building_year";
 
-        cout << "Search for gender: ";
-        cin >> gender;
-        gender[0] = toupper(gender[0]);
+        cout << "Search by building year: ";
+        cin >> building_year;
 
-        list.findbytype(gender, type);
+        list.findbytype(building_year, type);
     }
 
     else if(choice == 3)
     {
-        type = "birth";
+        type = "type";
 
-        cout << "Search for birth year: ";
-        cin >> birth_year;
+        cout << "Search by type: ";
+        cin >> comp_type;
 
-        list.findbytype(birth_year, type);
+        list.findbytype(comp_type, type);
     }
 
     else if(choice == 4)
     {
-        type = "death";
+        type = "built";
 
-        cout << "Search for death year: ";
-        cin >> death_year;
+        cout << "Search by built: ";
+        cin >> built;
 
-        list.findbytype(death_year, type);
+        list.findbytype(built, type);
     }
 }
 
@@ -160,6 +160,7 @@ void displayListSorted(Personal& list)
     {
          int sortChoice;
          displaySortChoices();
+
          cout << "Pick a number: ";
          cin >> sortChoice;
          cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
@@ -210,13 +211,13 @@ void editingChoices(Personal& list)
          }
          if(listEdit == 1)
          {
-             cout << endl;
-             list.addPersonal();
+            cout << endl;
+            list.addPersonal();
          }
          else
          {
              cout << endl;
-             list.deletePersonal();
+             //list.deletePersonal();
          }
 }
 
@@ -225,18 +226,18 @@ void displaySortChoices()
 {
     cout << "1) Sort by names in ascending order" << endl
          << "2) Sort by names in descending order" << endl
-         << "3) Sort by gender: females" << endl
-         << "4) Sort by gender: males" << endl
-         << "5) Sort by year of birth in ascending order" << endl
-         << "6) Sort by year of birth in descending order" << endl
-         << "7) Sort by year of death in ascending order" << endl
-         << "8) Sort by year of death in descending order" << endl;
+         << "3) Sort by building year in ascending order" << endl
+         << "4) Sort by building year in descending order" << endl
+         << "5) Sort by computer type in ascending order" << endl
+         << "6) Sort by computer type in descending order" << endl
+         << "7) Sort by computers that were built" << endl
+         << "8) Sort by computers that were not built" << endl;
 }
 
 void displayFindChoices()
 {
     cout << "1) Search by name" << endl
-         << "2) Search by gender" << endl
-         << "3) Search by birth year" << endl
-         << "4) Search by death year" << endl << endl;
+         << "2) Search by buildin year" << endl
+         << "3) Search by computer type" << endl
+         << "4) Search by built" << endl << endl;
 }
