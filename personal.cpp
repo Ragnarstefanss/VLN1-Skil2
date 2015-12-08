@@ -17,7 +17,7 @@ Personal::Personal()
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "/Database/skil2.sqlite";
+    QString dbName = "E:/Annad/VLN/VLN1-Skil2/Database/skil2.sqlite";
     //QString dbName = "skil2.sqlite";
     db.setDatabaseName(dbName);
     db.open();
@@ -602,6 +602,34 @@ void Personal::addPersonal()
     query.bindValue(":death", qdeath);
 
     query.exec();
+}
+
+void Personal::createOwnership()
+{
+    QSqlQuery query;
+    query.exec("SELECT t.name, p.name FROM ownership own JOIN persons p ON p.id = own.persons_id JOIN Tolvur t ON t.id = own.tolvu_id");
+
+    while(query.next())
+    {
+        QString talva_name   = query.value(0).toString();
+        QString person_name = query.value(1).toString();
+        qDebug() << "Computer name:" << talva_name << endl
+                 << "Person name:" << person_name << endl;
+    }
+}
+
+void Personal::showOwnership()
+{
+    QSqlQuery query;
+    query.exec("SELECT t.name, p.name FROM ownership own JOIN persons p ON p.id = own.persons_id JOIN Tolvur t ON t.id = own.tolvu_id");
+
+    while(query.next())
+    {
+        QString talva_name   = query.value(0).toString();
+        QString person_name = query.value(1).toString();
+        qDebug() << "Computer name:" << talva_name << endl
+                 << "Person name:" << person_name << endl;
+    }
 }
 
 void Personal::displayPersonal()

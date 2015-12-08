@@ -22,6 +22,9 @@ public:
 
     void findByComputer();                                                   //Searchs the list for names, genders, dates of births and deaths
     void findByPerson();
+
+    void createOwnership();
+    void showOwnership();
 };
 
 #endif // PERSONAL_H
