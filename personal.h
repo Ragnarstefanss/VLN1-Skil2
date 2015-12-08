@@ -23,6 +23,9 @@ public:
 
     void findByComputer();                                                   //Searches the list for a computer depending on users choice
     void findByPerson();                                                     //Searches the list for a person depending on users choice
+
+    void createOwnership();
+    void showOwnership();
 };
 
 #endif // PERSONAL_H
