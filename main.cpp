@@ -116,7 +116,6 @@ void searchForPerson(Personal& list)
 
         cout << "Search for the name: ";
         getline(cin, name);
-        //name[0] = toupper(name[0]);
 
         cout << endl;
         list.findbytype(name, type);
@@ -188,7 +187,7 @@ void editingChoices(Personal& list)
     int listEdit;
     cout << "What do you want to do?" << endl
          << "1) Add a person to the list" << endl
-         << "2) Remove a person from the list" << endl
+         << "2) Add a computer to the list" << endl
          << "Pick a number: ";
          cin >> listEdit;
          cin.ignore();                                              //þessi lína kemur í veg fyrir að það sendist inn empty input
@@ -217,7 +216,7 @@ void editingChoices(Personal& list)
          else
          {
              cout << endl;
-             //list.deletePersonal();
+             list.addComputer();
          }
 }
 

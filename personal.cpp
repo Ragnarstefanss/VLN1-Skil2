@@ -17,7 +17,7 @@ Personal::Personal()
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "E:/Annad/VLN/VLN1-Skil2/Database/skil2.sqlite";
+    QString dbName = "/Database/skil2.sqlite";
     //QString dbName = "skil2.sqlite";
     db.setDatabaseName(dbName);
     db.open();
@@ -36,6 +36,21 @@ void displayInformation(QSqlQuery query)
                  << "Building Year:" << building_year << endl
                  << "Type:" << type << endl
                  << "Built(0 = No/1 = Yes):" << built << endl;
+    }
+}
+
+void displayPersonalInformation(QSqlQuery query)
+{
+    while(query.next())
+    {
+        QString name   = query.value(0).toString();
+        QString gender = query.value(1).toString();
+        QString birth  = query.value(2).toString();
+        QString death  = query.value(3).toString();
+        qDebug() << "Name:" << name << endl
+                 << "Gender:" << gender << endl
+                 << "Birth year:" << birth << endl
+                 << "Death year:" << death << endl;
     }
 }
 
@@ -143,7 +158,7 @@ void Personal::deletePersonal()
 }
 
 */
-void Personal::addPersonal()
+void Personal::addComputer()
 {
     QSqlQuery query;
 
@@ -289,12 +304,207 @@ void Personal::addPersonal()
     query.exec();
 }
 
-void Personal::displayPersonal()
+void Personal::addPersonal()
 {
     QSqlQuery query;
-    query.exec("SELECT name, building_year, type, built FROM Tolvur");
-    cout << "List of famous computers: " << endl << endl;
-    displayInformation(query);
+
+    string name, gender, birth, death;
+    int birthINT;
+    char c;
+
+
+    NAME_LOOP:
+    cout << "Enter the name of the person you wish to add: ";
+    getline(cin, name);
+    if(name == "")
+    {
+        cout << "No entry found!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto NAME_LOOP;
+    }
+
+    for (unsigned int i = 0; i < name.length(); i++)
+    {
+        c = name.at(i);
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == ' '))
+        {
+                   //Right input
+        }
+        else
+        {
+            cout << "Only alphabetic letters and spaces are allowed!" << endl;
+            cout << "Try again!" << endl << endl;
+            goto NAME_LOOP;
+        }
+    }
+    name[0] = toupper(name[0]);                                         //Makes the first character of a name a capital letter
+    cout << endl;
+
+
+    SEX_LOOP:
+    cout << "Enter the gender: ";
+    getline(cin, gender);
+
+    while (gender == "")
+    {
+        cout << "No entry found!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto SEX_LOOP;
+    }
+
+    while((gender != "Male") && (gender != "male") && (gender != "Female") && (gender != "female"))
+    {
+        cout << "Wrong input! Enter either male or female, no transsexuals allowed!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto SEX_LOOP;
+    }
+
+    if(gender == "female")
+    {
+        gender[0] = toupper(gender[0]);
+    }
+
+    if(gender == "male")
+    {
+        gender[0] = toupper(gender[0]);
+    }
+    cout << endl;
+
+
+    BIRTH_LOOP:
+    cout << "Enter the year of birth: ";
+    getline(cin, birth);
+
+    while (birth == "")
+    {
+        cout << "No entry found!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto BIRTH_LOOP;
+    }
+
+    if(birth.length() == 4)
+    {
+        for (unsigned int i = 0; i < birth.length(); i++)
+        {
+            c = birth.at(i);
+            if ((c >= '0' && c <= '9'))
+            {
+                       //Right input
+            }
+            else
+            {
+                cout << "Wrong year input!" << endl;
+                cout << "Input a year containing exactly four numbers!" << endl << endl;
+                goto BIRTH_LOOP;
+            }
+        }
+    }
+    else
+    {
+        cout << "Wrong year input!" << endl;
+        cout << "Input a year containing exactly four numbers!" << endl << endl;
+        goto BIRTH_LOOP;
+    }
+    birthINT = atoi(birth.c_str());
+    cout << endl;
+
+
+    DEATH_LOOP:
+    cout << "Enter the year of death (if person is still alive enter a '-' instead): ";
+    getline(cin, death);
+    while (death == "")
+    {
+        cout << "No entry found!" << endl;
+        cout << "Try again!" << endl << endl;
+        goto DEATH_LOOP;
+    }
+    if(death.length() == 4)
+    {
+        for (unsigned int i = 0; i < death.length(); i++)
+        {
+            c = death.at(i);
+            if ((c >= '0' && c <= '9'))
+            {
+                       //Right input
+            }
+            else
+            {
+                cout << "Wrong year input!" << endl;
+                cout << "Input a year containing exactly four numbers or a '-' "
+                        "if the person is still alive" << endl << endl;
+                goto DEATH_LOOP;
+            }
+        }
+    }
+    else if(death == "-")
+    {
+        //Right input
+    }
+    else
+    {
+        cout << "Wrong year input!" << endl;
+        cout << "Input a year containing exactly four numbers or a '-' "
+                "if the person is alive" << endl << endl;
+        goto DEATH_LOOP;
+    }
+    cout << endl;
+
+    QString qname(name.c_str());
+    QString qgender(gender.c_str());
+    QString qdeath(death.c_str());
+    query.prepare("INSERT INTO persons (name, gender, birth, death) VALUES (:name, :gender, :birthINT, :death)");
+    query.bindValue(":name", qname);
+    query.bindValue(":gender", qgender);
+    query.bindValue(":birthINT", birthINT);
+    query.bindValue(":death", qdeath);
+
+    query.exec();
+}
+
+void Personal::displayPersonal()
+{
+    int choice;
+
+    cout << "Choose the list you wish to display:" << endl
+         << "1) List of famous people" << endl
+         << "2) List of famous computers" << endl
+         << "Pick a number: ";
+    cin >> choice;
+    cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
+    if (cin.fail())                                       //Checks if input is a number
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+
+    while((choice != 1) && (choice != 2))
+    {
+        cout <<"Choose either option 1 or 2!" << endl
+             <<"Pick a number: ";
+        cin >> choice;
+        cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
+        if (cin.fail())                                       //Checks if input is a number
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
+    }
+
+    if (choice == 1)
+    {
+        QSqlQuery query;
+        query.exec("SELECT name, gender, birth, death FROM persons");
+        cout << "List of famous people: " << endl << endl;
+        displayPersonalInformation(query);
+    }
+
+    else
+    {
+        QSqlQuery query;
+        query.exec("SELECT name, building_year, type, built FROM Tolvur");
+        cout << "List of famous computers: " << endl << endl;
+        displayInformation(query);
+    }
 }
 
 

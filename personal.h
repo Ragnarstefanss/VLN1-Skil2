@@ -13,6 +13,7 @@ public:
 
     void displayPersonal();                                                  //Displays the list of people
 
+    void addComputer();                                                      //Adds new computer to the list
     void addPersonal();                                                      //Adds new person to the list
     void deletePersonal();                                                   //Removes a person from the list
 
