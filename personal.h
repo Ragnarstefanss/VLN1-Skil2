@@ -17,9 +17,11 @@ public:
     void addPersonal();                                                      //Adds new person to the list
     void deletePersonal();                                                   //Removes a person from the list
 
-    void sort(int choice);                                                   //Sorts the list depending on users choice
+    void sortByComputers();                                                  //Sorts the computers list depending on users choice
+    void sortByPeople();                                                     //Sorts the people list depenging on users choice
 
-    void findbytype(string input, string type);                              //Searchs the list for names, genders, dates of births and deaths
+    void findByComputer();                                                   //Searchs the list for names, genders, dates of births and deaths
+    void findByPerson();
 };
 
 #endif // PERSONAL_H

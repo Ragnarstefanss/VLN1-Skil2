@@ -10,8 +10,6 @@
 using namespace std;
 
 void displayListSorted(Personal& list);
-void displaySortChoices();
-void displayFindChoices();
 void searchForPerson(Personal& list);
 void editingChoices(Personal& list);
 
@@ -28,7 +26,7 @@ int main(int argc, char *argv[])
         cout << "1) Display the list" << endl
              << "2) Edit the list" << endl
              << "3) Display the list sorted" << endl
-             << "4) Search for a computer in the list" << endl
+             << "4) Search the list" << endl
              << "5) Exit the program" << endl;
 
         cout << "Pick a number: ";
@@ -82,10 +80,11 @@ int main(int argc, char *argv[])
 
 void searchForPerson(Personal& list)
 {
-    string name, building_year, type, built, comp_type;
-    displayFindChoices();
     int choice;
-    cout << "Pick a number: ";
+
+    cout << "1) Find a famous person" << endl
+         << "2) Find a famous computer" << endl
+         << "Pick a number: ";
     cin >> choice;
     cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
     if (cin.fail())                                       //Checks if input is a number
@@ -95,15 +94,15 @@ void searchForPerson(Personal& list)
     }
     cout << endl;
 
-
-    while((choice < 1) || (choice > 4))
+    while((choice != 1) && (choice != 2))
     {
-        cout <<"Wrong number!" << endl;
-        displayFindChoices();
-        cout << "Pick a number: ";
+        cout <<"Wrong number!" << endl
+             << "1) Find a famous person" << endl
+             << "2) Find a famous computer" << endl
+             << "Pick a number: ";
         cin >> choice;
         cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
-        if (cin.fail())                                       //Checks if input is a number
+        if (cin.fail())                                 //Checks if input is a number
         {
             cin.clear();
             cin.ignore(100, '\n');
@@ -112,44 +111,11 @@ void searchForPerson(Personal& list)
     }
     if(choice == 1)
     {
-        type = "name";
-
-        cout << "Search for the name: ";
-        getline(cin, name);
-
-        cout << endl;
-        list.findbytype(name, type);
-        cout << endl;
-     }
-
-   else if(choice == 2)
-    {
-        type = "building_year";
-
-        cout << "Search by building year: ";
-        cin >> building_year;
-
-        list.findbytype(building_year, type);
+        list.findByPerson();
     }
-
-    else if(choice == 3)
+    else
     {
-        type = "type";
-
-        cout << "Search by type: ";
-        cin >> comp_type;
-
-        list.findbytype(comp_type, type);
-    }
-
-    else if(choice == 4)
-    {
-        type = "built";
-
-        cout << "Search by built: ";
-        cin >> built;
-
-        list.findbytype(built, type);
+       list.findByComputer();
     }
 }
 
@@ -158,26 +124,33 @@ void displayListSorted(Personal& list)
     while(true)
     {
          int sortChoice;
-         displaySortChoices();
+         cout << "How do you want the list sorted" << endl
+              << "1) Sort by famous people" << endl
+              << "2) Sort by famous computers" << endl
+              << "Pick a number: ";
 
-         cout << "Pick a number: ";
          cin >> sortChoice;
          cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
-         if (cin.fail())                                       //Checks if input is a number
+         if (cin.fail())                                 //Checks if input is a number
          {
              cin.clear();
              cin.ignore(100, '\n');
          }
          cout << endl;
 
-         if((sortChoice < 1) || (sortChoice > 8))
+         if((sortChoice != 1) && (sortChoice != 2))
          {
              cout <<"Wrong number!" << endl << endl;
          }
-         else
+         else if(sortChoice == 1)
          {
-            list.sort(sortChoice);
-            break;
+             list.sortByPeople();
+             break;
+         }
+         else if(sortChoice == 2)
+         {
+             list.sortByComputers();
+             break;
          }
     }
 }
@@ -218,25 +191,4 @@ void editingChoices(Personal& list)
              cout << endl;
              list.addComputer();
          }
-}
-
-
-void displaySortChoices()
-{
-    cout << "1) Sort by names in ascending order" << endl
-         << "2) Sort by names in descending order" << endl
-         << "3) Sort by building year in ascending order" << endl
-         << "4) Sort by building year in descending order" << endl
-         << "5) Sort by computer type in ascending order" << endl
-         << "6) Sort by computer type in descending order" << endl
-         << "7) Sort by computers that were built" << endl
-         << "8) Sort by computers that were not built" << endl;
-}
-
-void displayFindChoices()
-{
-    cout << "1) Search by name" << endl
-         << "2) Search by buildin year" << endl
-         << "3) Search by computer type" << endl
-         << "4) Search by built" << endl << endl;
 }

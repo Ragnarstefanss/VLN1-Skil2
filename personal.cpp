@@ -55,8 +55,48 @@ void displayPersonalInformation(QSqlQuery query)
 }
 
 
-void Personal::sort(int choice)
+void Personal::sortByComputers()
 {
+    int choice;
+
+    cout << "1) Sort by names in ascending order" << endl
+         << "2) Sort by names in descending order" << endl
+         << "3) Sort by building year in ascending order" << endl
+         << "4) Sort by building year in descending order" << endl
+         << "5) Sort by computer type in ascending order" << endl
+         << "6) Sort by computer type in descending order" << endl
+         << "7) Sort by computers that were built" << endl
+         << "8) Sort by computers that were not built" << endl;
+    cin >> choice;
+    cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
+    if (cin.fail())                                 //Checks if input is a number
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+
+    while((choice < 1) || (choice > 8))
+    {
+        cout <<"Wrong number!" << endl
+             << "1) Sort by names in ascending order" << endl
+             << "2) Sort by names in descending order" << endl
+             << "3) Sort by building year in ascending order" << endl
+             << "4) Sort by building year in descending order" << endl
+             << "5) Sort by computer type in ascending order" << endl
+             << "6) Sort by computer type in descending order" << endl
+             << "7) Sort by computers that were built" << endl
+             << "8) Sort by computers that were not built" << endl;
+        cin >> choice;
+        cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
+        if (cin.fail())                                 //Checks if input is a number
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
+        cout << endl;
+    }
+
+
    QSqlQuery query;
    if(choice == 1)
    {
@@ -114,6 +154,109 @@ void Personal::sort(int choice)
        displayInformation(query);
    }
 }
+
+void Personal::sortByPeople()
+{
+    int choice;
+
+    cout << "1) Sort by names in ascending order" << endl
+         << "2) Sort by names in descending order" << endl
+         << "3) Sort by males" << endl
+         << "4) Sort by females" << endl
+         << "5) Sort by year of birth in ascending order" << endl
+         << "6) Sort by year of birth in descending order" << endl
+         << "7) Sort by year of death in ascending order" << endl
+         << "8) Sort by year of death in descending order" << endl;
+    cin >> choice;
+    cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
+    if (cin.fail())                                 //Checks if input is a number
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+
+    while((choice < 1) || (choice > 8))
+    {
+        cout <<"Wrong number!" << endl
+             << "1) Sort by names in ascending order" << endl
+             << "2) Sort by names in descending order" << endl
+             << "3) Sort by males" << endl
+             << "4) Sort by females" << endl
+             << "5) Sort by year of birth in ascending order" << endl
+             << "6) Sort by year of birth in descending order" << endl
+             << "7) Sort by year of death in ascending order" << endl
+             << "8) Sort by year of death in descending order" << endl;
+        cin >> choice;
+        cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
+        if (cin.fail())                                 //Checks if input is a number
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
+        cout << endl;
+    }
+
+
+    QSqlQuery query;
+    if(choice == 1)
+    {
+        query.exec("SELECT name, gender, birth, death FROM persons ORDER BY name ASC");
+        cout << "List of famous people sorted by name(ASC): " << endl << endl;
+        displayPersonalInformation(query);
+    }
+
+    if(choice == 2)
+    {
+        query.exec("SELECT name, gender, birth, death FROM persons ORDER BY name DESC");
+        cout << "List of famous people sorted by name(DESC): " << endl << endl;
+        displayPersonalInformation(query);
+    }
+
+    if(choice == 3)
+    {
+       query.exec("SELECT name, gender, birth, death FROM persons ORDER BY gender DESC");
+       cout << "List of famous people sorted by gender(Male): " << endl << endl;
+       displayPersonalInformation(query);
+    }
+
+    if(choice == 4)
+    {
+       query.exec("SELECT name, gender, birth, death FROM persons ORDER BY gender ASC");
+       cout << "List of famous people sorted by gender(Female): " << endl << endl;
+       displayPersonalInformation(query);
+    }
+
+    if(choice == 5)
+    {
+       query.exec("SELECT name, gender, birth, death FROM persons ORDER BY birth ASC");
+       cout << "List of famous people sorted by birth year(ASC): " << endl << endl;
+       displayPersonalInformation(query);
+    }
+
+    if(choice == 6)
+    {
+        query.exec("SELECT name, gender, birth, death FROM persons ORDER BY birth DESC");
+        cout << "List of famous people sorted by birth year(DESC): " << endl << endl;
+        displayPersonalInformation(query);
+     }
+
+    if(choice == 7)
+    {
+        query.exec("SELECT name, gender, birth, death FROM persons ORDER BY death ASC");
+        cout << "List of famous people sorted by death year(ASC): " << endl << endl;
+        displayPersonalInformation(query);
+    }
+
+    if(choice == 8)
+    {
+        query.exec("SELECT name, gender, birth, death FROM persons ORDER BY death DESC");
+        cout << "List of famous people sorted by death year(DESC): " << endl << endl;
+        displayPersonalInformation(query);
+    }
+}
+
+
+
 /*
 
 void Personal::deletePersonal()
@@ -508,8 +651,84 @@ void Personal::displayPersonal()
 }
 
 
-void Personal::findbytype(string input, string type)
+void Personal::findByComputer()
 {
+    string input, type;
+    string name, building_year, built, comp_type;
+    int choice;
+
+    cout << "1) Search by name" << endl
+         << "2) Search by building year" << endl
+         << "3) Search by computer type" << endl
+         << "4) Search by built" << endl << endl
+         << "Pick a number: ";
+    cin >> choice;
+    cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
+    if (cin.fail())                                       //Checks if input is a number
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+    cout << endl;
+
+
+    while((choice < 1) || (choice > 4))
+    {
+        cout <<"Wrong number!" << endl
+             << "1) Search by name" << endl
+             << "2) Search by building year" << endl
+             << "3) Search by computer type" << endl
+             << "4) Search by built" << endl << endl
+             << "Pick a number: ";
+        cin >> choice;
+        cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
+        if (cin.fail())                                       //Checks if input is a number
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
+        cout << endl;
+    }
+    if(choice == 1)
+    {
+        type = "name";
+
+        cout << "Search for the name: ";
+        getline(cin, name);
+        input = name;
+        cout << endl;
+     }
+
+   else if(choice == 2)
+    {
+        type = "building_year";
+
+        cout << "Search by building year: ";
+        cin >> building_year;
+        input = building_year;
+        cout << endl;
+    }
+
+    else if(choice == 3)
+    {
+        type = "type";
+
+        cout << "Search by type: ";
+        cin >> comp_type;
+        input = comp_type;
+        cout << endl;
+    }
+
+    else if(choice == 4)
+    {
+        type = "built";
+
+        cout << "Search by built: ";
+        cin >> built;
+        input = built;
+        cout << endl;
+    }
+
     QString qinput(input.c_str());
     QString qtype(type.c_str());
 
@@ -517,10 +736,100 @@ void Personal::findbytype(string input, string type)
     query.prepare("SELECT name, building_year, type, built FROM Tolvur WHERE "+ qtype + " LIKE '"+qinput+"%'");
     query.exec();
 
-
     if (!query.exec())
             qDebug() << query.lastError();
 
     displayInformation(query);
+}
+
+void Personal::findByPerson()
+{
+    string input, type;
+    string name, gender, birth, death;
+    int choice;
+
+    cout << "1) Search by name" << endl
+         << "2) Search by genderr" << endl
+         << "3) Search by birth year" << endl
+         << "4) Search by death year" << endl << endl
+         << "Pick a number: ";
+    cin >> choice;
+    cin.ignore();                                         //þessi lína kemur í veg fyrir að það sendist inn empty input
+    if (cin.fail())                                       //Checks if input is a number
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+    cout << endl;
+
+
+    while((choice < 1) || (choice > 4))
+    {
+        cout << "1) Search by name" << endl
+             << "2) Search by gender" << endl
+             << "3) Search by birth year" << endl
+             << "4) Search by death year" << endl << endl
+             << "Pick a number: ";
+        cin >> choice;
+        cin.ignore();                                   //þessi lína kemur í veg fyrir að það sendist inn empty input
+        if (cin.fail())                                       //Checks if input is a number
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
+        cout << endl;
+    }
+    if(choice == 1)
+    {
+        type = "name";
+
+        cout << "Search for the name: ";
+        getline(cin, name);
+        input = name;
+        cout << endl;
+     }
+
+   else if(choice == 2)
+    {
+        type = "gender";
+
+        cout << "Search by gender: ";
+        cin >> gender;
+        input = gender;
+        cout << endl;
+    }
+
+    else if(choice == 3)
+    {
+        type = "birth";
+
+        cout << "Search by birth year: ";
+        cin >> birth;
+        input = birth;
+        cout << endl;
+    }
+
+    else if(choice == 4)
+    {
+        type = "death";
+
+        cout << "Search by death year: ";
+        cin >> death;
+        input = death;
+        cout << endl;
+    }
+
+    QString qinput(input.c_str());
+    QString qtype(type.c_str());
+
+    QSqlQuery query;
+    query.prepare("SELECT name, gender, birth, death FROM persons WHERE "+ qtype + " LIKE '"+qinput+"%'");
+    query.exec();
+
+
+    if (!query.exec())
+            qDebug() << query.lastError();
+
+    displayPersonalInformation(query);
 }
 
