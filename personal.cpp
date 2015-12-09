@@ -18,7 +18,7 @@ Personal::Personal()
     // DATABASE
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "C:/Users/Lenovo/Desktop/Lokaverkefni2/VLN1-Skil2/Database/skil2.sqlite";
+    QString dbName = "C:/Users/Maciuska/Desktop/VLN1-Skil2-master/Database/skil2.sqlite";
     //QString dbName = "skil2.sqlite";
     db.setDatabaseName(dbName);
     db.open();
@@ -565,7 +565,7 @@ void Personal::addPersonal()
 // ownership
 void Personal::createOwnership()
 {
-    cout << "Choose an id for desired computer";
+    cout << "Choose an id for desired computer" << endl;
     Sleep(2000); // læt forritið bíða í 2 sek svo það sé hægt að lesa línuna fyrir ofan
 
     QSqlQuery query;
