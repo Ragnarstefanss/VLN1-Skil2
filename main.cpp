@@ -100,6 +100,7 @@ void ownership(Personal& list)
     cout << endl;
 
     while ((choice < 1) || (choice > 2))
+
     {
         cout <<"Wrong number!" << endl
              << "1) Create ownership between computer and person" << endl

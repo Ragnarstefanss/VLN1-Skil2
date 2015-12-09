@@ -24,6 +24,7 @@ public:
     void findByComputer();                                                   //Searches the list for a computer depending on users choice
     void findByPerson();                                                     //Searches the list for a person depending on users choice
 
+
     void createOwnership();                                                  //Lets user create a link between a computer and a person
     void showOwnership();                                                    //Shows current links between a computer and a person
 };

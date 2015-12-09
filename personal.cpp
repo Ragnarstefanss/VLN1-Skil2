@@ -565,7 +565,7 @@ void Personal::addPersonal()
 // ownership
 void Personal::createOwnership()
 {
-    cout << "Choose an id for desired computer" << endl;
+    cout << "Choose an id for desired computer";
     Sleep(2000); // læt forritið bíða í 2 sek svo það sé hægt að lesa línuna fyrir ofan
 
     QSqlQuery query;
@@ -582,6 +582,7 @@ void Personal::createOwnership()
                  << "Building Year:" << building_year << endl
                  << "Type:" << type << endl;
     }
+
 
     int talva_id;
     cout << "ID: ";
@@ -909,94 +910,93 @@ void Personal::deletePersonal()
      }
 
     query.exec("SELECT id, name, gender, birth, death FROM persons");
-    a = 1;
-    while(query.next())
-    {
-       int id         = query.value(0).toInt();
-       QString name   = query.value(1).toString();
-       qDebug() << name << endl;
-       if(a == pNumber)
-       {
-           deletedName = name.toLocal8Bit().constData();
-           deleteID = id;
-       }
-       a++;
+        a = 1;
+        while(query.next())
+        {
+           int id         = query.value(0).toInt();
+           QString name   = query.value(1).toString();
+           qDebug() << name << endl;
+           if(a == pNumber)
+           {
+               deletedName = name.toLocal8Bit().constData();
+               deleteID = id;
+           }
+           a++;
+        }
+
+        QString qnamey(deletedName.c_str());
+
+
+        query.prepare("DELETE FROM ownership WHERE persons_id= :ID");
+        query.bindValue(":ID", deleteID);
+        query.exec();
+        query.prepare("DELETE FROM persons WHERE name LIKE '"+qnamey+"%'");
+        query.exec();
+
+        cout << "Removing complete!" << endl << endl;
+
     }
 
-    QString qnamey(deletedName.c_str());
 
-
-    query.prepare("DELETE FROM ownership WHERE persons_id= :ID");
-    query.bindValue(":ID", deleteID);
-    query.exec();
-    query.prepare("DELETE FROM persons WHERE name LIKE '"+qnamey+"%'");
-    query.exec();
-
-    cout << "Removing complete!" << endl << endl;
-
-}
-
-
-void Personal::deleteComputer()
-{
-    QSqlQuery query;
-    string deletedName;
-    int a = 1;
-    int pNumber, deleteID;
-
-    query.exec("SELECT name, building_year, type, built FROM Tolvur");
-
-    while(query.next())
+    void Personal::deleteComputer()
     {
-        QString name   = query.value(0).toString();
-        cout << a << ": ";
-        qDebug() << name << endl;
-        a++;
-    }
-    a--;
-    cout << endl << "Write the number of the computer you wish to remove: ";
-    cin >> pNumber;
-    if (cin.fail())                                                              //Checks if input is a number
-    {
-        cin.clear();
-        cin.ignore(100, '\n');
-    }
+        QSqlQuery query;
+        string deletedName;
+        int a = 1;
+        int pNumber, deleteID;
 
-    while((pNumber) < 1 || (pNumber > a))
-    {
-        cout << "Choose a valid number from the list!" << endl
-             << "Write the number of the computer you wish to remove: ";
+        query.exec("SELECT name, building_year, type, built FROM Tolvur");
+
+        while(query.next())
+        {
+            QString name   = query.value(0).toString();
+            cout << a << ": ";
+            qDebug() << name << endl;
+            a++;
+        }
+        a--;
+        cout << endl << "Write the number of the computer you wish to remove: ";
         cin >> pNumber;
-        if (cin.fail())                                                         //Checks if input is a number
+        if (cin.fail())                                                              //Checks if input is a number
         {
             cin.clear();
             cin.ignore(100, '\n');
         }
-     }
 
-    query.exec("SELECT id, name, building_year, type, built FROM Tolvur");
-    a = 1;
-    while(query.next())
-    {
-       int id         = query.value(0).toInt();
-       QString name   = query.value(1).toString();
-       qDebug() << name << endl;
-       if(a == pNumber)
-       {
-           deletedName = name.toLocal8Bit().constData();
-           deleteID = id;
-       }
-       a++;
+        while((pNumber) < 1 || (pNumber > a))
+        {
+            cout << "Choose a valid number from the list!" << endl
+                 << "Write the number of the computer you wish to remove: ";
+            cin >> pNumber;
+            if (cin.fail())                                                         //Checks if input is a number
+            {
+                cin.clear();
+                cin.ignore(100, '\n');
+            }
+         }
+
+        query.exec("SELECT id, name, building_year, type, built FROM Tolvur");
+        a = 1;
+        while(query.next())
+        {
+           int id         = query.value(0).toInt();
+           QString name   = query.value(1).toString();
+           qDebug() << name << endl;
+           if(a == pNumber)
+           {
+               deletedName = name.toLocal8Bit().constData();
+               deleteID = id;
+           }
+           a++;
+        }
+
+        QString qnamey(deletedName.c_str());
+
+        query.prepare("DELETE FROM ownership WHERE tolvu_id= :ID");
+        query.bindValue(":ID", deleteID);
+        query.exec();
+
+        query.prepare("DELETE FROM Tolvur WHERE name LIKE '"+qnamey+"%'");
+        query.exec();
+        cout << "Removing complete!" << endl << endl;
     }
-
-    QString qnamey(deletedName.c_str());
-
-    query.prepare("DELETE FROM ownership WHERE tolvu_id= :ID");
-    query.bindValue(":ID", deleteID);
-    query.exec();
-
-    query.prepare("DELETE FROM Tolvur WHERE name LIKE '"+qnamey+"%'");
-    query.exec();
-    cout << "Removing complete!" << endl << endl;
-}
-
